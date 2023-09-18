@@ -24,12 +24,12 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    image.add("https://pleatedjeans.files.wordpress.com/2010/06/iron-man-suit.jpg");
-    image.add("https://th.bing.com/th/id/OIP.unzpk7eelbC68jRXhVZffwHaHa?pid=ImgDet&rs=1");
-    image.add("https://th.bing.com/th/id/OIP.unzpk7eelbC68jRXhVZffwHaHa?pid=ImgDet&rs=1");
-    image.add("https://th.bing.com/th/id/OIP.unzpk7eelbC68jRXhVZffwHaHa?pid=ImgDet&rs=1");
-    image.add("https://th.bing.com/th/id/OIP.unzpk7eelbC68jRXhVZffwHaHa?pid=ImgDet&rs=1");
-    image.add("https://th.bing.com/th/id/OIP.unzpk7eelbC68jRXhVZffwHaHa?pid=ImgDet&rs=1");
+    image.add("https://th.bing.com/th/id/OIP.6-NtZcFoUTUD58chsT9jqwAAAA?pid=ImgDet&rs=1");
+    image.add("https://th.bing.com/th/id/OIP.KBME9hFuYbldHWa4ZhL8ngHaEo?pid=ImgDet&rs=1");
+    image.add("https://th.bing.com/th/id/OIP.2382nsmHMTFS98o-ny4PEQHaGd?pid=ImgDet&rs=1");
+    image.add("https://th.bing.com/th/id/OIP.lcPtma6WLMtozodcBXMlXQHaEK?pid=ImgDet&rs=1");
+    image.add("https://th.bing.com/th/id/OIP.0G2TFEz2pA7_88jnrJ7OWwHaEK?pid=ImgDet&rs=1");
+    image.add("https://th.bing.com/th/id/OIP.SAUXaI25Jh6zRzfkr8nGDgHaEK?pid=ImgDet&rs=1");
 
     return Scaffold(
       appBar: AppBar(
@@ -57,78 +57,73 @@ class Home extends StatelessWidget {
             ),
 
             GridView.builder(
+              padding: const EdgeInsets.all(15),
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: image.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, crossAxisSpacing: 8, mainAxisSpacing: 4),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, crossAxisSpacing: 25, mainAxisSpacing: 25),
               itemBuilder: (context,index){
-                return  Container(
-                  decoration: BoxDecoration(
-                    image: new DecorationImage(image: new NetworkImage(image[index]),
-                    fit: BoxFit.fill,
+                return  GridTile(
+                  footer: Container(
+                    color: Colors.white,
+                    padding: const EdgeInsets.all(2),
+                    child: Center(
+                      child: Text('Photo $index',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 10),),
                     ),
-
                   ),
-                  child: Card(
-                    // elevation: 5,
-                    // child: Image.network(image[index],fit: BoxFit.fitWidth),
-                    child: TextButton(onPressed: () {  },
-                      style: TextButton.styleFrom(
-                        alignment: Alignment.center,
-                        backgroundColor: Colors.transparent,
-                        // elevation: 0,
-
-                      ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.network(image[index]),
-                        const SizedBox(
-                          height: 4,
+                  child: GestureDetector(
+                    onTap: (){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('GridView Image $index clicked.'),
                         ),
-                        Text('Photo $index',style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
-                      ],
-                    ),
+                      );
+                    },
+                    child: SizedBox(
+                      height: 140,
+                      child: Image.network(image[index],fit: BoxFit.cover,),
+
                     ),
                   ),
+
+
                 );
               },
               scrollDirection: Axis.vertical,
             ),
-          ListTile(
-            leading: CircleAvatar(
-              radius: 30.0,
-              backgroundImage:
-              NetworkImage(image[0]),
-              backgroundColor: Colors.transparent,
+            ListView.builder(
+              itemCount: 3,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: NetworkImage(image[index]),
+
+                  ),
+                  title: Text('Photo ${index+1}'),
+                  subtitle: Text('Description for Photo ${index+1}'),
+                );
+              },
             ),
-            title: const Text('Photo 1'),
-            subtitle: const Text('Description for Photo 1'),
-          ),
-            ListTile(
-            leading: CircleAvatar(
-              radius: 30.0,
-              backgroundImage:
-              NetworkImage(image[1]),
-              backgroundColor: Colors.transparent,
-            ),
-            title: const Text('Photo 2'),
-            subtitle: const Text('Description for Photo 2'),
-          ),
-            ListTile(
-            leading: CircleAvatar(
-              radius: 30.0,
-              backgroundImage:
-              NetworkImage(image[2]),
-              backgroundColor: Colors.transparent,
-            ),
-            title: const Text('Photo 3'),
-            subtitle: const Text('Description for Photo 3'),
-          ),
+
+            const SizedBox(height: 12,),
+
+            FloatingActionButton(
+              onPressed: (){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Image Upload clicked.'),
+                  ),
+                );
+              },
+              child: const Icon(Icons.upload_rounded, weight: 10),
+            )
 
           ],
         ),
+
       ),
+
     );
   }
 }
