@@ -112,7 +112,7 @@ class Home extends StatelessWidget {
             FloatingActionButton(
               onPressed: (){
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Image Upload clicked.'),
+                  const SnackBar(content: Text('Photos Uploaded Successfully!'),
                   ),
                 );
               },
